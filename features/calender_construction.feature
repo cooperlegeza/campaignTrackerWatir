@@ -18,8 +18,8 @@ Feature: Calender Construction
   Scenario: Removing Events
     Given I am a GM of the current campaign
     And I am on a calender
-    When I remove an event from the timeline
-    Then I should not see the event in the calender
+    When I remove an event from the calender
+    Then I should not see the event in the timeline
     And the event should be removed from the factsheets
 
   Scenario: Hiding Events

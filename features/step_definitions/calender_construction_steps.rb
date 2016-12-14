@@ -1,43 +1,92 @@
 Given(/^I am a GM of the current campaign$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  pending #TODO: Write page object
+  visit_page Home do |page|
+  end
+
+  on_page Home do |page|
+    page.login
+  end
+
+  on_page Login do |page|
+    page.username = GM_USERNAME
+    page.password = GM_PASSWORD
+  end
 end
 
 When(/^I create a calender$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  pending #TODO: Write page object
+  on_page CalendersHome do |page|
+    page.create_calender
+  end
 end
 
 Then(/^I should see a blank calender$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  pending #TODO: Write page object
+  on_page Calender do |page|
+    expect(page.event_titles).to match_array([])
+  end
 end
 
 And(/^I am on a calender$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  pending #TODO: Write page object
+  on_page Home do |page|
+    page.calenders
+  end
+
+  on_page CalendersHome do |page|
+    page.calender
+  end
 end
 
 When(/^I add an event to the timeline$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  pending #TODO: Write page object
+  on_page Timeline do |page|
+    page.add_event
+    page.event_title = BIG_EVENT
+  end
 end
 
 Then(/^I should see the event in the calender$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  pending #TODO: Write page object
+  on_page Calender do |page|
+    expect(page.event_titles).to include @title
+  end
 end
 
 And(/^a blank event sheet should be added to the factsheets$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When(/^I remove an event from the timeline$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then(/^I should not see the event in the calender$/) do
   pending #TODO: Write page object
-  on_page 
+  on_page Calender do |page|
+    page.factsheets
+  end
+
+  on_page FactsheetHome do |page|
+    expect(page.factsheet_titles).to include @title
+  end
+end
+
+When(/^I remove an event from the calender$/) do
+  pending #TODO: Write page object
+  on_page Calender do |page|
+    page.first_event
+    @title = page.event_title
+    page.remove_event
+  end
+end
+
+Then(/^I should not see the event in the timeline$/) do
+  pending #TODO: Write page object
+  on_page Calender do |page|
+    page.timeline
+  end
+
+  on_page Timeline do |page|
+    expect(page.event_titles).to not_include @title
+  end
 end
 
 And(/^the event should be removed from the factsheets$/) do
   pending #TODO: Write page object
-  on_page Calender do |page|
+  on_page Timeline do |page|
     page.factsheets
   end
 
@@ -61,12 +110,12 @@ Then(/^players are not able to see that event$/) do
     page.login
   end
 
-  on_page LoginPage do |page|
+  on_page Login do |page|
     page.username = PLAYER_USERNAME
     page.password = PLAYER_PASSWORD
   end
 
-  on_page HomePage do |page|
+  on_page Home do |page|
     page.calenders
   end
 
