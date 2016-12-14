@@ -39,5 +39,3 @@ Feature: Calender Construction
     And I am on a calender
     When I click on an event
     Then I should be able to link the event to a location in a map
-
-  Scenario: 
